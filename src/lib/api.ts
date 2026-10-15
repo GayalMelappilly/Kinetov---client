@@ -1,6 +1,13 @@
 import { Product, Order, CustomBatteryQuote, AdminUser } from '../types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const LIVE_API_URL = 'https://kinetov---server.shy-hill-9a53.workers.dev/api';
+const LOCAL_API_URL = 'http://localhost:5000/api';
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1'
+    ? LIVE_API_URL
+    : LOCAL_API_URL);
 
 // Helper for HTTP requests
 async function fetcher<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
